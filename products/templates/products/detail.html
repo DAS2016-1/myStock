@@ -7,7 +7,7 @@
     <div class="col s12 m4 l4">
       <div class="card">
         <div class="card-image">
-          <img src="https://static.cineclick.com.br/sites/adm/uploads/banco_imagens/31/602x0_1439644246.jpg">
+          <img src="{{i.item_image_link}}">
         </div>
         <div class="card-content">
           <span class="card-title">{{i.item_name.product_category}} {{i.item_name.product}}</span>
@@ -15,7 +15,7 @@
           <span class="card-title">Disponível: {{i.available_quantity}} unidades</span>
         </div>
         <div class="card-action center-align">
-          <div class=" row" >
+          <div class=" row">
             <form method="POST" action="{%url "products:increase_quantity"%}">
               {% csrf_token %}
               <div class="col s6">

@@ -56,6 +56,7 @@ class Item(models.Model):
     item_description = models.TextField()
     available_quantity = models.PositiveIntegerField(default=0)
     minimum_quantity = models.PositiveIntegerField(default=5)
+    item_image_link = models.CharField(max_length=500)
 
     def increase_quantity(self, qtd):
         self.available_quantity += qtd
