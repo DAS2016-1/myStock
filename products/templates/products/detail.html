@@ -1,25 +1,50 @@
 {% extends "myStock/base.html" %}
 
+{%block content%}
 <div class="container">
   <div class="row">
     {% for i in itens%}
     <div class="col s12 m4 l4">
-      {{i.item_name.product_category}} {{i.item_name.product}} <br>
-      {{i.item_package}} {{i.item_volume}}{{i.item_measure}} - c/{{i.item_capacity}}<br>
-      {{i.available_quantity}}
-      <form method="POST" action="{%url "products:increase_quantity"%}">
-        {% csrf_token %}
-        <input type="hidden" name="id_item" value="{{i.id}}">
-        <input type="number" min="0" step="1" name="quantity" value="0" style="width: 45px;">
-        <button class="waves-effect waves-light btn-large" type="submit" name="action">Adicionar</button>
-      </form>
-      <form method="POST" action="{%url "products:decrease_quantity"%}">
-        {% csrf_token %}
-        <input type="hidden" name="id_item" value="{{i.id}} ">
-        <input type="number" min="0" step="1" name="quantity" value="0" style="width: 45px;">
-        <button class="waves-effect waves-light btn-large" type="submit" name="action">Remover</button>
-      </form>
+      <div class="card">
+        <div class="card-image">
+          <img src="https://static.cineclick.com.br/sites/adm/uploads/banco_imagens/31/602x0_1439644246.jpg">
+        </div>
+        <div class="card-content">
+          <span class="card-title">{{i.item_name.product_category}} {{i.item_name.product}}</span>
+          <p>{{i.item_package}} {{i.item_volume}}{{i.item_measure}} - c/{{i.item_capacity}}</p>
+          <span class="card-title">Disponível: {{i.available_quantity}} unidades</span>
+        </div>
+        <div class="card-action center-align">
+          <div class=" row" >
+            <form method="POST" action="{%url "products:increase_quantity"%}">
+              {% csrf_token %}
+              <div class="col s6">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input type="hidden" name="id_item" value="{{i.id}}">
+                    <input class="center-align" type="number" min="0" step="1" name="quantity" value="0" style="width: 45px;">
+                    <button class="waves-effect waves-light btn-large" type="submit" name="action">Adicionar</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <form method="POST" action="{%url "products:decrease_quantity"%}">
+              {% csrf_token %}
+              <div class="col s6">
+                <div class="row">
+                  <div class="input-field col s12">
+                    <input type="hidden" name="id_item" value="{{i.id}} ">
+                    <input class="center-align" type="number" min="0" step="1" name="quantity" value="0" style="width: 45px;">
+                    <button class="waves-effect waves-light btn-large" type="submit" name="action">Remover</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
     {% endfor %}
   </div>
 </div>
+{%endblock%}
