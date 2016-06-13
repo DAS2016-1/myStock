@@ -6,10 +6,10 @@
     {% for i in itens%}
     <div class="col s12 m4 l4">
       <div class="card">
-        <div class="card-image">
-          <img src="{{i.item_image_link}}">
+        <div class="card-image valign-wrapper">
+          <img class="responsive-img" src="{{i.item_image_link}}">
         </div>
-        <div class="card-content">
+        <div class="card-content" style="text-align:center">
           <span class="card-title">{{i.item_name.product_category}} {{i.item_name.product}}</span>
           <p>{{i.item_package}} {{i.item_volume}}{{i.item_measure}} - c/{{i.item_capacity}}</p>
           <span class="card-title">Disponível: {{i.available_quantity}} unidades</span>
