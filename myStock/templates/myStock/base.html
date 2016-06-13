@@ -1,0 +1,67 @@
+{% load staticfiles %}
+
+<html>
+    <head>
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="{% static "css/style.css" %}"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}"  media="screen,projection"/>
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>
+            {% block title %}
+                About Us
+            {% endblock title %}
+        </title>
+    </head>
+
+    <body>
+        <header>
+            <div class="navbar-fixed">
+                <nav>
+                    <div id="nav-bar-custom" class="nav-wrapper teal lighten-2">
+                        <a href="/feed/"class="brand-logo" id="initial-logo">     About Us</a>
+                        <ul class="right hide-on-med-and-down">
+                            <li><a href="/feed/">Feed Abouts</a></li>
+                            <li><a href="{%url "au_auth:show_profile" request.user.id%}">Meu Perfil</a> </li>
+                            <li><a href="{% url 'au_auth:show_profiles' %}">Usuários</a></li>
+                            <li><a href="{% url 'au_auth:make_logout' %}">Logout</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <br>
+        <br>
+        {% block content %}{% endblock content %}
+        <footer class="page-footer teal lighten-2">
+            <div class="container">
+                <div class="row">
+                    <div class="col l6 s12">
+                        <h5 class="white-text">About Us</h5>
+                        <p class="grey-text text-lighten-4">Só aqui você consegue tudo sobre nós.</p>
+                    </div>
+                    <div class="col l4 offset-l2 s12">
+                        <h5 class="white-text">Links</h5>
+                        <ul>
+                            <li><a class="white-text"href="/feed/">Feed</a></li>
+                            <li><a class="white-text" href="{% url 'au_auth:show_profiles' %}">Usuários</a></li>
+                            <li><a class="white-text" href="{% url 'au_auth:make_logout' %}">Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copyright">
+                <div class="container">
+                    © 2016 Copyright
+                    <a class="grey-text text-lighten-4 right" href="https://github.com/DAS2016-1/about_us">More Links</a>
+                </div>
+            </div>
+        </footer>
+        <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="{% static "js/jquery-2.1.1.min.js" %}"></script>
+        <script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
+    </body>
+</html>
