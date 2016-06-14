@@ -49,6 +49,7 @@ class Package(models.Model):
 class Item(models.Model):
     item_name = models.ForeignKey(Product)
     item_price = models.DecimalField(max_digits=5, decimal_places=2, default=000.00)
+    item_total_investment = models.DecimalField(max_digits=10, decimal_places=2)
     item_capacity = models.ForeignKey(Capacity)
     item_measure = models.ForeignKey(Measure)
     item_volume = models.ForeignKey(Volume)
@@ -58,13 +59,16 @@ class Item(models.Model):
     minimum_quantity = models.PositiveIntegerField(default=5)
     item_image_link = models.CharField(max_length=500)
 
-    def increase_quantity(self, qtd):
+    def increase_quantity(self, qtd, price):
         self.available_quantity += qtd
+        self.item_price = price
+        self.item_total_investment += self.item_price * qtd
         return self.available_quantity
 
-    def decrease_quantity(self, qtd):
+    def decrease_quantity(self, qtd, price):
         if (self.available_quantity - qtd) > 0:
             self.available_quantity -= qtd
+            self.item_total_investment -= price * qtd
         else:
             self.available_quantity = 0
         return self.available_quantity

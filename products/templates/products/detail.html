@@ -18,25 +18,12 @@
           <div class=" row">
             <form method="POST" action="{%url "products:increase_quantity"%}">
               {% csrf_token %}
-              <div class="col s6">
+              <div class="col s12">
                 <div class="row">
-                  <div class="input-field col s12">
                     <input type="hidden" name="id_item" value="{{i.id}}">
                     <input class="center-align" type="number" min="0" step="1" name="quantity" value="0" style="width: 45px;">
+                    <input class="center-align" type="number" min="0" step="any" name="price" value="0.00" style="width: 45px;">
                     <button class="waves-effect waves-light btn-large" type="submit" name="action">Adicionar</button>
-                  </div>
-                </div>
-              </div>
-            </form>
-            <form method="POST" action="{%url "products:decrease_quantity"%}">
-              {% csrf_token %}
-              <div class="col s6">
-                <div class="row">
-                  <div class="input-field col s12">
-                    <input type="hidden" name="id_item" value="{{i.id}} ">
-                    <input class="center-align" type="number" min="0" step="1" name="quantity" value="0" style="width: 45px;">
-                    <button class="waves-effect waves-light btn-large" type="submit" name="action">Remover</button>
-                  </div>
                 </div>
               </div>
             </form>
