@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'materialize',
     'myStock',
     'products',
+    'sales',
 ]
 
 MIDDLEWARE_CLASSES = [

@@ -1,4 +1,5 @@
 from django.db import models
+from sales.models import *
 from django.utils import timezone
 
 class Category(models.Model):
@@ -13,13 +14,11 @@ class Provider(models.Model):
     def __str__(self):
         return self.provider_name
 
-class Product(models.Model):
-    product = models.CharField(max_length=50)
-    product_category = models.ForeignKey(Category)
-    product_provider = models.ForeignKey(Provider)
+class Brand(models.Model):
+    brand_name = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.product
+        return str(self.brand_name)
 
 class Capacity(models.Model):
     capacity = models.PositiveIntegerField(default=1) #Capacity of the pack. e.g.: 12, 24, 36
@@ -46,32 +45,41 @@ class Package(models.Model):
     def __str__(self):
         return self.package_type
 
-class Item(models.Model):
-    item_name = models.ForeignKey(Product)
-    item_price = models.DecimalField(max_digits=5, decimal_places=2, default=000.00)
-    item_total_investment = models.DecimalField(max_digits=10, decimal_places=2)
-    item_capacity = models.ForeignKey(Capacity)
-    item_measure = models.ForeignKey(Measure)
-    item_volume = models.ForeignKey(Volume)
-    item_package = models.ForeignKey(Package)
-    item_description = models.TextField()
+class Product(models.Model):
+    product_brand = models.ForeignKey(Brand)
+    product_category = models.ForeignKey(Category)
+    product_provider = models.ForeignKey(Provider)
+    product_total_investment = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+    product_capacity = models.ForeignKey(Capacity)
+    product_measure = models.ForeignKey(Measure)
+    product_volume = models.ForeignKey(Volume)
+    product_package = models.ForeignKey(Package)
+    product_description = models.TextField()
+    product_image_link = models.CharField(max_length=500)
+    product_price = models.DecimalField(max_digits=5, decimal_places=2, default=000.00)
     available_quantity = models.PositiveIntegerField(default=0)
     minimum_quantity = models.PositiveIntegerField(default=5)
-    item_image_link = models.CharField(max_length=500)
 
     def increase_quantity(self, qtd, price):
         self.available_quantity += qtd
-        self.item_price = price
-        self.item_total_investment += self.item_price * qtd
+        self.product_price = price
+        self.product_total_investment += self.product_price * qtd
         return self.available_quantity
 
     def decrease_quantity(self, qtd, price):
         if (self.available_quantity - qtd) > 0:
             self.available_quantity -= qtd
-            self.item_total_investment -= price * qtd
+            self.product_total_investment -= price * qtd
         else:
             self.available_quantity = 0
         return self.available_quantity
+
+    def __str__(self):
+        return "%s %s %s %s%s" % (self.product_category.category, self.product_brand,self.product_package, self.product_volume, self.product_measure)
+
+class Item(models.Model):
+    item_product = models.ForeignKey(Product)
+    sale = models.ForeignKey(Sale)
 
     def __str__(self):
         return self.item_name.product

@@ -5,27 +5,27 @@ from products.models import *
 from decimal import Decimal
 
 def index(request):
-    itens = Item.objects.all
-    return render(request, 'products/detail.html', {'itens': itens})
+    products = Product.objects.all
+    return render(request, 'products/detail.html', {'products': products})
 
 def increase_quantity(request):
     form = request.POST
     if form:
-        id_item = form.get("id_item")
+        id_product = form.get("id_product")
         qtd = int(form.get("quantity"))
         price = Decimal(form.get("price"))
-        item = Item.objects.get(id=id_item)
-        item.available_quantity = item.increase_quantity(qtd, price)
-        item.save()
+        product = Product.objects.get(id=id_product)
+        product.available_quantity = product.increase_quantity(qtd, price)
+        product.save()
     return redirect(reverse("products:index"))
 
 def decrease_quantity(request):
     form = request.POST
     if form:
-        id_item = form.get("id_item")
+        id_product = form.get("product_item")
         qtd = int(form.get("quantity"))
         price = Decimal(form.get("price"))
-        item = Item.objects.get(id=id_item)
-        item.available_quantity = item.decrease_quantity(qtd, price)
-        item.save()
+        product = Product.objects.get(id=id_product)
+        product.available_quantity = product.decrease_quantity(qtd, price)
+        product.save()
     return redirect(reverse("products:index"))

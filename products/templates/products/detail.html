@@ -3,16 +3,16 @@
 {%block content%}
 <div class="container">
   <div class="row">
-    {% for i in itens%}
+    {% for p in products%}
     <div class="col s12 m4 l4">
       <div class="card">
         <div class="card-image valign-wrapper">
-          <img class="responsive-img" src="{{i.item_image_link}}">
+          <img class="responsive-img" src="{{p.product_image_link}}">
         </div>
         <div class="card-content" style="text-align:center">
-          <span class="card-title">{{i.item_name.product_category}} {{i.item_name.product}}</span>
-          <p>{{i.item_package}} {{i.item_volume}}{{i.item_measure}} - c/{{i.item_capacity}}</p>
-          <span class="card-title">Disponível: {{i.available_quantity}} unidades</span>
+          <span class="card-title">{{p.product_category.category}} {{p.product_brand}}</span>
+          <p>{{p.product_package}} {{p.product_volume}}{{p.product_measure}} - c/{{p.product_capacity}}</p>
+          <span class="card-title">Disponível: {{p.available_quantity}} unidades</span>
         </div>
         <div class="card-action center-align">
           <div class=" row">
@@ -20,7 +20,7 @@
               {% csrf_token %}
               <div class="col s12">
                 <div class="row">
-                    <input type="hidden" name="id_item" value="{{i.id}}">
+                    <input type="hidden" name="id_product" value="{{p.id}}">
                     <input class="center-align" type="number" min="0" step="1" name="quantity" value="0" style="width: 45px;">
                     <input class="center-align" type="number" min="0" step="any" name="price" value="0.00" style="width: 45px;">
                     <button class="waves-effect waves-light btn-large" type="submit" name="action">Adicionar</button>
