@@ -1,3 +1,5 @@
 from django.db import models
+from products.models import *
 
-# Create your models here.
+class Sale(models.Model):
+    sale_date = models.DateField()

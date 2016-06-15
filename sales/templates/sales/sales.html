@@ -1,0 +1,7 @@
+{% extends "myStock/base.html" %}
+
+{%block content%}
+{% for p in products%}
+{{p.product_category.category}} {{p.product_brand}} {{p.product_package}} {{p.product_volume}}{{p.product_measure}}<br>
+{% endfor %}
+{%endblock%}
