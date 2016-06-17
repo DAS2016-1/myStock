@@ -1,0 +1,10 @@
+{% extends "myStock/base.html" %}
+
+{%block content%}
+{% for l in list%}
+{{l.id}}<br>
+{% for i in l.item_set.all %}
+{{i.item_product}} {{i.item_product.product_price}}<br>
+{% endfor %}
+{% endfor %}
+{%endblock%}

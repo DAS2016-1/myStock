@@ -79,7 +79,11 @@ class Product(models.Model):
 
 class Item(models.Model):
     item_product = models.ForeignKey(Product)
+    item_price = models.DecimalField(max_digits=5, decimal_places=2, default=000.00)
     sale = models.ForeignKey(Sale)
 
+    def set_price(self):
+        self.item_price = self.item_product.product_price
+
     def __str__(self):
-        return self.item_name.product
+        return str(self.item_product.product_brand)
